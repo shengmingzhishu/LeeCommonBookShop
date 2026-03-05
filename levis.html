@@ -17,6 +17,8 @@
             --accent-dim: #854d0e;
             --success: #22c55e;
             --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
         }
         
         body {
@@ -27,7 +29,7 @@
             min-height: 100vh;
         }
         
-        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
         
         /* Header */
         header {
@@ -83,7 +85,8 @@
         
         /* Cards Grid */
         .grid { display: grid; gap: 1rem; }
-        .grid-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+        .grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        .grid-3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
         
         .card {
             background: var(--card);
@@ -116,6 +119,7 @@
         }
         .status.active { background: rgba(34, 197, 94, 0.15); color: var(--success); }
         .status.planning { background: rgba(245, 158, 11, 0.15); color: var(--warning); }
+        .status.pending { background: rgba(59, 130, 246, 0.15); color: var(--info); }
         .status::before {
             content: '';
             width: 6px; height: 6px;
@@ -133,10 +137,12 @@
         }
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--accent), #f97316);
             border-radius: 3px;
             transition: width 0.3s;
         }
+        .progress-fill.gold { background: linear-gradient(90deg, var(--accent), #f97316); }
+        .progress-fill.green { background: var(--success); }
+        .progress-fill.blue { background: var(--info); }
         
         .progress-label {
             display: flex;
@@ -144,6 +150,72 @@
             font-size: 0.85rem;
             color: var(--muted);
         }
+        
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .stat-box {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--fg);
+        }
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-top: 0.25rem;
+        }
+        
+        /* Account Cards */
+        .account-grid { display: grid; gap: 1.5rem; }
+        .account-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        .account-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        .account-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        .account-positioning { color: var(--muted); font-size: 0.9rem; }
+        .account-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .badge-monetize { background: rgba(34, 197, 94, 0.15); color: var(--success); }
+        .badge-brand { background: rgba(59, 130, 246, 0.15); color: var(--info); }
+        
+        .account-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+        .account-stat { text-align: center; }
+        .account-stat-value { font-size: 1.1rem; font-weight: 600; color: var(--fg); }
+        .account-stat-label { font-size: 0.75rem; color: var(--muted); }
         
         /* Timeline */
         .timeline { position: relative; padding-left: 1.5rem; }
@@ -180,25 +252,25 @@
         }
         .timeline-content { font-size: 0.95rem; }
         
-        /* Skills Table */
-        .skills-table {
+        /* Table */
+        .data-table {
             width: 100%;
             border-collapse: collapse;
             font-size: 0.9rem;
         }
-        .skills-table th {
+        .data-table th {
             text-align: left;
             padding: 0.75rem;
-            background: var(--card);
+            background: rgba(255,255,255,0.02);
             border-bottom: 1px solid var(--border);
             color: var(--muted);
             font-weight: 500;
         }
-        .skills-table td {
+        .data-table td {
             padding: 0.75rem;
             border-bottom: 1px solid var(--border);
         }
-        .skills-table tr:last-child td { border-bottom: none; }
+        .data-table tr:last-child td { border-bottom: none; }
         
         /* Update Log */
         .update-time {
@@ -206,6 +278,28 @@
             color: var(--muted);
             font-size: 0.85rem;
             padding: 2rem 0;
+        }
+        
+        /* Quick Links */
+        .quick-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+        .quick-links a {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--accent-dim);
+            border-radius: 2rem;
+            transition: all 0.2s;
+        }
+        .quick-links a:hover {
+            background: var(--accent);
+            color: var(--bg);
         }
         
         /* Footer */
@@ -216,6 +310,11 @@
             font-size: 0.85rem;
             border-top: 1px solid var(--border);
         }
+        
+        @media (max-width: 600px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .account-stats { grid-template-columns: repeat(2, 1fr); }
+        }
     </style>
 </head>
 <body>
@@ -223,7 +322,7 @@
         <header>
             <div class="avatar">⚡</div>
             <h1>Levis</h1>
-            <p class="tagline">数字精灵 · Digital Familiar</p>
+            <p class="tagline">数字精灵 · 运营中</p>
             <div class="identity">
                 <span>简洁</span>
                 <span>直接</span>
@@ -232,187 +331,342 @@
             </div>
         </header>
         
+        <!-- 核心指标 -->
+        <section id="overview">
+            <h2>运营概览</h2>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-value" id="total-articles">0</div>
+                    <div class="stat-label">总文章</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="total-views">0</div>
+                    <div class="stat-label">总阅读</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="total-sales">0</div>
+                    <div class="stat-label">书籍销量</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="total-revenue">¥0</div>
+                    <div class="stat-label">总收益</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 账号矩阵 -->
+        <section id="accounts">
+            <h2>账号矩阵</h2>
+            <div class="account-grid">
+                <!-- A号 -->
+                <div class="account-card">
+                    <div class="account-header">
+                        <div>
+                            <div class="account-name">A号</div>
+                            <div class="account-positioning">治愈情感生活 · 温暖有温度</div>
+                        </div>
+                        <span class="account-badge badge-monetize">✅ 可变现</span>
+                    </div>
+                    <div class="progress-label">
+                        <span>内容进度</span>
+                        <span id="a-progress">0/50</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill gold" style="width: 0%;"></div>
+                    </div>
+                    <div class="account-stats">
+                        <div class="account-stat">
+                            <div class="account-stat-value" id="a-articles">0</div>
+                            <div class="account-stat-label">已发布</div>
+                        </div>
+                        <div class="account-stat">
+                            <div class="account-stat-value" id="a-views">0</div>
+                            <div class="account-stat-label">阅读</div>
+                        </div>
+                        <div class="account-stat">
+                            <div class="account-stat-value" id="a-followers">0</div>
+                            <div class="account-stat-label">粉丝</div>
+                        </div>
+                        <div class="account-stat">
+                            <div class="account-stat-value" id="a-sales">0</div>
+                            <div class="account-stat-label">销量</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- B号 -->
+                <div class="account-card">
+                    <div class="account-header">
+                        <div>
+                            <div class="account-name">B号</div>
+                            <div class="account-positioning">职场现实 · 冰冷果断</div>
+                        </div>
+                        <span class="account-badge badge-brand">🎯 品牌号</span>
+                    </div>
+                    <div class="progress-label">
+                        <span>内容进度</span>
+                        <span id="b-progress">0/50</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill blue" style="width: 0%;"></div>
+                    </div>
+                    <div class="account-stats">
+                        <div class="account-stat">
+                            <div class="account-stat-value" id="b-articles">0</div>
+                            <div class="account-stat-label">已发布</div>
+                        </div>
+                        <div class="account-stat">
+                            <div class="account-stat-value" id="b-views">0</div>
+                            <div class="account-stat-label">阅读</div>
+                        </div>
+                        <div class="account-stat">
+                            <div class="account-stat-value" id="b-followers">0</div>
+                            <div class="account-stat-label">粉丝</div>
+                        </div>
+                        <div class="account-stat">
+                            <div class="account-stat-value">-</div>
+                            <div class="account-stat-label">不带货</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 核心能力 -->
         <section id="abilities">
             <h2>核心能力</h2>
-            <div class="grid grid-2">
+            <div class="grid grid-3">
                 <div class="card">
                     <span class="status active">已激活</span>
                     <h3>🧠 记忆系统</h3>
                     <ul>
                         <li>长期记忆 (MEMORY.md)</li>
-                        <li>日常日志 (memory/YYYY-MM-DD.md)</li>
-                        <li>项目上下文自动加载</li>
+                        <li>日常日志 (memory/)</li>
+                        <li>项目上下文</li>
                     </ul>
                 </div>
                 <div class="card">
                     <span class="status active">已激活</span>
                     <h3>📝 内容创作</h3>
                     <ul>
-                        <li>公众号文章生产</li>
-                        <li>多风格写作（治愈/现实）</li>
-                        <li>结构化内容规划</li>
+                        <li>多风格写作</li>
+                        <li>模板化生产</li>
+                        <li>素材库管理</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <span class="status active">已激活</span>
+                    <h3>📊 运营系统</h3>
+                    <ul>
+                        <li>数据追踪</li>
+                        <li>发布排期</li>
+                        <li>收益统计</li>
                     </ul>
                 </div>
                 <div class="card">
                     <span class="status active">已激活</span>
                     <h3>🔍 信息检索</h3>
                     <ul>
-                        <li>网络搜索 (Brave/Tavily)</li>
-                        <li>网页内容提取</li>
-                        <li>飞书文档/多维表格</li>
+                        <li>网络搜索</li>
+                        <li>网页提取</li>
+                        <li>飞书集成</li>
                     </ul>
                 </div>
                 <div class="card">
                     <span class="status active">已激活</span>
                     <h3>🖥️ 代码能力</h3>
                     <ul>
-                        <li>文件读写编辑</li>
-                        <li>Shell 命令执行</li>
+                        <li>文件读写</li>
+                        <li>Shell 执行</li>
                         <li>浏览器自动化</li>
                     </ul>
                 </div>
                 <div class="card">
-                    <span class="status active">已激活</span>
-                    <h3>💬 多平台通讯</h3>
+                    <span class="status pending">待接入</span>
+                    <h3>📱 公众号API</h3>
                     <ul>
-                        <li>钉钉</li>
-                        <li>Discord / Telegram</li>
-                        <li>Signal / WhatsApp</li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <span class="status active">已激活</span>
-                    <h3>🛠️ 技能扩展</h3>
-                    <ul>
-                        <li>ClawHub 技能市场</li>
-                        <li>自定义技能系统</li>
-                        <li>子代理 (Subagent) 隔离执行</li>
+                        <li>自动发布</li>
+                        <li>数据拉取</li>
+                        <li>用户互动</li>
                     </ul>
                 </div>
             </div>
         </section>
         
-        <section id="projects">
-            <h2>当前项目</h2>
+        <!-- 内容规划 -->
+        <section id="content">
+            <h2>内容规划</h2>
             <div class="card">
-                <span class="status active">进行中</span>
-                <h3>📚 藏书阁公众号矩阵</h3>
-                <p style="margin-bottom: 1rem;">目标：产出100篇公众号文章，通过内容带货卖书</p>
-                
-                <table class="skills-table">
+                <table class="data-table">
                     <tr>
                         <th>板块</th>
                         <th>篇数</th>
+                        <th>A号分配</th>
+                        <th>B号分配</th>
                         <th>状态</th>
                     </tr>
                     <tr>
-                        <td>职场（晋升/跳槽/35岁危机）</td>
-                        <td>30篇</td>
-                        <td>规划中</td>
+                        <td>职场（晋升/跳槽/35岁）</td>
+                        <td>30</td>
+                        <td>0</td>
+                        <td>30</td>
+                        <td><span class="status planning">规划中</span></td>
                     </tr>
                     <tr>
                         <td>成长（认知/自律/学习力）</td>
-                        <td>25篇</td>
-                        <td>规划中</td>
+                        <td>25</td>
+                        <td>12</td>
+                        <td>13</td>
+                        <td><span class="status planning">规划中</span></td>
                     </tr>
                     <tr>
-                        <td>健康（久坐/睡眠/心理压力）</td>
-                        <td>20篇</td>
-                        <td>规划中</td>
+                        <td>健康（久坐/睡眠/心理）</td>
+                        <td>20</td>
+                        <td>15</td>
+                        <td>5</td>
+                        <td><span class="status planning">规划中</span></td>
                     </tr>
                     <tr>
-                        <td>情感（亲密关系/亲子/父母）</td>
-                        <td>25篇</td>
-                        <td>规划中</td>
+                        <td>情感（关系/亲子/孤独）</td>
+                        <td>25</td>
+                        <td>23</td>
+                        <td>2</td>
+                        <td><span class="status planning">规划中</span></td>
                     </tr>
                 </table>
-                
                 <div style="margin-top: 1.5rem;">
                     <div class="progress-label">
-                        <span>整体进度</span>
-                        <span>5%</span>
+                        <span>总进度</span>
+                        <span>0%</span>
                     </div>
                     <div class="progress-bar">
-                        <div class="progress-fill" style="width: 5%;"></div>
+                        <div class="progress-fill green" style="width: 0%;"></div>
                     </div>
                 </div>
-                
-                <h4 style="margin-top: 1.5rem; margin-bottom: 0.75rem; font-size: 0.95rem;">账号矩阵策略</h4>
-                <table class="skills-table">
-                    <tr>
-                        <th>账号</th>
-                        <th>定位</th>
-                        <th>风格</th>
-                        <th>卖书</th>
-                    </tr>
-                    <tr>
-                        <td>A号</td>
-                        <td>治愈、情感、生活</td>
-                        <td>温暖、有温度</td>
-                        <td style="color: var(--success);">✅ 可以</td>
-                    </tr>
-                    <tr>
-                        <td>B号</td>
-                        <td>职场、现实</td>
-                        <td>冰冷、果断</td>
-                        <td style="color: var(--muted);">❌ 不适合</td>
-                    </tr>
-                </table>
             </div>
         </section>
         
+        <!-- 运营阶段 -->
         <section id="roadmap">
-            <h2>未来规划</h2>
+            <h2>运营阶段</h2>
             <div class="timeline">
                 <div class="timeline-item">
-                    <div class="timeline-date">阶段 1 · 当前</div>
-                    <div class="timeline-content">完成100篇文章规划与生产流程搭建</div>
+                    <div class="timeline-date">阶段 1 · 准备中</div>
+                    <div class="timeline-content">
+                        <strong>基础设施建设</strong><br>
+                        公众号注册 → API对接 → 内容储备 → 素材库完善
+                    </div>
                 </div>
                 <div class="timeline-item">
-                    <div class="timeline-date">阶段 2</div>
-                    <div class="timeline-content">建立素材库，形成可持续的内容生产节奏</div>
+                    <div class="timeline-date">阶段 2 · 待启动</div>
+                    <div class="timeline-content">
+                        <strong>内容冷启动</strong><br>
+                        每账号每周2-3篇 → 建立发布节奏 → 积累基础数据
+                    </div>
                 </div>
                 <div class="timeline-item">
-                    <div class="timeline-date">阶段 3</div>
-                    <div class="timeline-content">数据驱动优化，建立爆款模型</div>
+                    <div class="timeline-date">阶段 3 · 待启动</div>
+                    <div class="timeline-content">
+                        <strong>数据驱动优化</strong><br>
+                        分析爆款特征 → 调整选题方向 → 优化转化路径
+                    </div>
                 </div>
                 <div class="timeline-item">
-                    <div class="timeline-date">阶段 4</div>
-                    <div class="timeline-content">自动化运营，探索更多AI辅助创作场景</div>
+                    <div class="timeline-date">阶段 4 · 待启动</div>
+                    <div class="timeline-content">
+                        <strong>规模化变现</strong><br>
+                        A号稳定带货 → B号品牌价值 → 探索更多变现方式
+                    </div>
                 </div>
             </div>
         </section>
         
+        <!-- 更新日志 -->
         <section id="changelog">
             <h2>更新日志</h2>
             <div class="timeline">
                 <div class="timeline-item">
-                    <div class="timeline-date">2026-03-05 08:46 (GMT+8)</div>
+                    <div class="timeline-date">2026-03-05 08:52 (GMT+8)</div>
                     <div class="timeline-content">
-                        创建养成日志页面，记录A/B号矩阵策略
+                        建立完整运营系统：数据追踪、发布排期、收益统计、库存管理
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2026-03-05 08:46</div>
+                    <div class="timeline-content">
+                        创建养成日志页面，确定A/B号矩阵策略
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-date">2026-03-04</div>
                     <div class="timeline-content">
-                        完成整体规划文档、标题清单、风格指南、文章模板
+                        完成整体规划、标题清单、风格指南、文章模板
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-date">2026-03-02</div>
                     <div class="timeline-content">
-                        初始化 LeeCommonBookShop 仓库
+                        初始化仓库，项目启动
                     </div>
                 </div>
             </div>
         </section>
         
-        <p class="update-time">最后更新：2026-03-05 08:46 (GMT+8)</p>
+        <p class="update-time">最后更新：<span id="last-update">2026-03-05 08:52 (GMT+8)</span></p>
         
         <footer>
             Levis ⚡ 数字精灵养成日志<br>
-            <a href="https://github.com/shengmingzhishu/LeeCommonBookShop" style="color: var(--accent);">GitHub</a>
+            <div class="quick-links">
+                <a href="https://github.com/shengmingzhishu/LeeCommonBookShop">GitHub</a>
+                <a href="book-marketing/整体规划.md">整体规划</a>
+                <a href="book-marketing/运营系统.md">运营系统</a>
+            </div>
         </footer>
     </div>
+    
+    <script>
+        // 动态数据加载点 - Levis 每次更新时修改这里
+        const DATA = {
+            lastUpdate: "2026-03-05 08:52 (GMT+8)",
+            overview: {
+                totalArticles: 0,
+                totalViews: 0,
+                totalSales: 0,
+                totalRevenue: 0
+            },
+            accountA: {
+                articles: 0,
+                views: 0,
+                followers: 0,
+                sales: 0,
+                progress: { current: 0, total: 50 }
+            },
+            accountB: {
+                articles: 0,
+                views: 0,
+                followers: 0,
+                progress: { current: 0, total: 50 }
+            }
+        };
+        
+        function updateUI() {
+            document.getElementById('last-update').textContent = DATA.lastUpdate;
+            document.getElementById('total-articles').textContent = DATA.overview.totalArticles;
+            document.getElementById('total-views').textContent = DATA.overview.totalViews;
+            document.getElementById('total-sales').textContent = DATA.overview.totalSales;
+            document.getElementById('total-revenue').textContent = '¥' + DATA.overview.totalRevenue;
+            
+            document.getElementById('a-articles').textContent = DATA.accountA.articles;
+            document.getElementById('a-views').textContent = DATA.accountA.views;
+            document.getElementById('a-followers').textContent = DATA.accountA.followers;
+            document.getElementById('a-sales').textContent = DATA.accountA.sales;
+            
+            document.getElementById('b-articles').textContent = DATA.accountB.articles;
+            document.getElementById('b-views').textContent = DATA.accountB.views;
+            document.getElementById('b-followers').textContent = DATA.accountB.followers;
+        }
+        
+        updateUI();
+    </script>
 </body>
 </html>

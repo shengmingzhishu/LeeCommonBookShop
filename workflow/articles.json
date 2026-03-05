@@ -1,0 +1,19 @@
+{
+  "accounts": {
+    "A": {
+      "name": "主号-生活治愈",
+      "articles": []
+    },
+    "B": {
+      "name": "副号-职场成长",
+      "articles": []
+    }
+  },
+  "status": {
+    "idea": "选题",
+    "draft": "草稿",
+    "review": "审核中",
+    "ready": "待发布",
+    "published": "已发布"
+  }
+}

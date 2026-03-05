@@ -1,0 +1,25 @@
+{
+  "month": "2026-03",
+  "accounts": {
+    "A": {
+      "name": "待命名",
+      "followers_start": 0,
+      "followers_end": 0,
+      "articles_published": 0,
+      "total_views": 0,
+      "total_likes": 0,
+      "total_comments": 0,
+      "total_shares": 0
+    },
+    "B": {
+      "name": "待命名",
+      "followers_start": 0,
+      "followers_end": 0,
+      "articles_published": 0,
+      "total_views": 0,
+      "total_likes": 0,
+      "total_comments": 0,
+      "total_shares": 0
+    }
+  }
+}

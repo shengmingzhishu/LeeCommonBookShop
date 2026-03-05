@@ -1,0 +1,29 @@
+{
+  "target": {
+    "monthlyProfit": 2000,
+    "yearlyProfit": 48000
+  },
+  "conversion": {
+    "profitMargin": 0.2,
+    "avgPrice": 50,
+    "conversionRate": 0.01
+  },
+  "dailyRequired": {
+    "monthlySales": 10000,
+    "monthlyOrders": 200,
+    "monthlyTraffic": 20000,
+    "dailyReads": 667
+  },
+  "current": {
+    "A": {
+      "fans": 0,
+      "monthlyReads": 0,
+      "monthlyProfit": 0
+    },
+    "B": {
+      "fans": 0,
+      "monthlyReads": 0,
+      "monthlyProfit": 0
+    }
+  }
+}

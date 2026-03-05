@@ -1,0 +1,22 @@
+{
+  "version": "1.0",
+  "updated": "2026-03-05T08:52:00+08:00",
+  "accounts": {
+    "A": {
+      "name": "待命名",
+      "positioning": "治愈情感生活",
+      "style": "温暖有温度",
+      "monetize": true,
+      "status": "pending",
+      "credentials": {}
+    },
+    "B": {
+      "name": "待命名",
+      "positioning": "职场现实",
+      "style": "冰冷果断",
+      "monetize": false,
+      "status": "pending",
+      "credentials": {}
+    }
+  }
+}
