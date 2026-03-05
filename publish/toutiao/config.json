@@ -1,0 +1,21 @@
+{
+  "mode": "browser",
+  "api": {
+    "app_id": "",
+    "app_secret": "",
+    "access_token": "",
+    "baseUrl": "https://open.toutiao.com"
+  },
+  "browser": {
+    "headless": false,
+    "show_cursor": true,
+    "record_video": true,
+    "publishUrl": "https://mp.toutiao.com/profile_v4/graphic/publish",
+    "loginUrl": "https://sso.toutiao.com/login"
+  },
+  "article": {
+    "category": "news_career",
+    "maxTitleLength": 30,
+    "maxTags": 5
+  }
+}

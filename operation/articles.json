@@ -1,0 +1,21 @@
+{
+  "version": "1.0",
+  "created": "2026-03-05T12:41:00+08:00",
+  "updated": "2026-03-05T12:41:00+08:00",
+  "articles": [],
+  "statusDefinitions": {
+    "IDEA": { "name": "选题", "color": "cyan", "order": 1 },
+    "DRAFT": { "name": "草稿", "color": "yellow", "order": 2 },
+    "REVIEW": { "name": "审核中", "color": "magenta", "order": 3 },
+    "READY": { "name": "待发布", "color": "blue", "order": 4 },
+    "SCHEDULED": { "name": "已排期", "color": "cyan", "order": 5 },
+    "PUBLISHED": { "name": "已发布", "color": "green", "order": 6 },
+    "FAILED": { "name": "发布失败", "color": "red", "order": 0 }
+  },
+  "categoryDefinitions": {
+    "career": { "name": "职场", "account": "B", "description": "职场晋升、跳槽、35岁危机等" },
+    "growth": { "name": "成长", "account": "AB", "description": "认知提升、自律、学习力等" },
+    "health": { "name": "健康", "account": "A", "description": "久坐、睡眠、心理健康等" },
+    "emotion": { "name": "情感", "account": "A", "description": "关系、亲子、孤独感等" }
+  }
+}

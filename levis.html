@@ -586,6 +586,33 @@
             <h2>更新日志</h2>
             <div class="timeline">
                 <div class="timeline-item">
+                    <div class="timeline-date">2026-03-05 12:41 (GMT+8)</div>
+                    <div class="timeline-content">
+                        完善运营系统数据结构：扩展 config.json 公众号API配置、完善 schedule.json 排期结构、创建文章追踪脚本 track_articles.js、添加 API 服务 api.js
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2026-03-05 17:30 (GMT+8)</div>
+                    <div class="timeline-content">
+                        <strong>重大进展</strong><br>
+                        文章优化完成222篇 | 股票推荐定时任务上线 | 工作成果仓库建立
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2026-03-05 17:45 (GMT+8)</div>
+                    <div class="timeline-content">
+                        <strong>成果归档</strong><br>
+                        222篇优化文章 + 发布技能 + 股票推荐系统 → LeeCommonOpenClawWorkSpace
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2026-03-05 17:25 (GMT+8)</div>
+                    <div class="timeline-content">
+                        <strong>文章优化完成</strong><br>
+                        222篇优化文章完成，按模板重构
+                    </div>
+                </div>
+                <div class="timeline-item">
                     <div class="timeline-date">2026-03-05 08:52 (GMT+8)</div>
                     <div class="timeline-content">
                         建立完整运营系统：数据追踪、发布排期、收益统计、库存管理
@@ -626,8 +653,10 @@
     
     <script>
         // 动态数据加载点 - Levis 每次更新时修改这里
+        // 数据来源: operation/ 目录下的 JSON 文件
+        // API服务: node operation/api.js 启动后访问 /api/dashboard
         const DATA = {
-            lastUpdate: "2026-03-05 08:52 (GMT+8)",
+            lastUpdate: "2026-03-05 12:41 (GMT+8)",
             overview: {
                 totalArticles: 0,
                 totalViews: 0,
@@ -646,27 +675,74 @@
                 views: 0,
                 followers: 0,
                 progress: { current: 0, total: 50 }
+            },
+            // 最近文章（从 operation/articles.json 同步）
+            recentArticles: [],
+            // 发布排期（从 operation/schedule.json 同步）
+            schedule: {
+                pending: 0,
+                thisMonth: 0
             }
         };
+        
+        // 从本地API加载数据（需启动 api.js 服务）
+        async function loadDataFromAPI() {
+            try {
+                const res = await fetch('/api/dashboard');
+                const data = await res.json();
+                Object.assign(DATA, data);
+                updateUI();
+            } catch (e) {
+                console.log('API未启动，使用静态数据');
+            }
+        }
         
         function updateUI() {
             document.getElementById('last-update').textContent = DATA.lastUpdate;
             document.getElementById('total-articles').textContent = DATA.overview.totalArticles;
-            document.getElementById('total-views').textContent = DATA.overview.totalViews;
+            document.getElementById('total-views').textContent = formatNumber(DATA.overview.totalViews);
             document.getElementById('total-sales').textContent = DATA.overview.totalSales;
             document.getElementById('total-revenue').textContent = '¥' + DATA.overview.totalRevenue;
             
+            // A号
             document.getElementById('a-articles').textContent = DATA.accountA.articles;
-            document.getElementById('a-views').textContent = DATA.accountA.views;
-            document.getElementById('a-followers').textContent = DATA.accountA.followers;
+            document.getElementById('a-views').textContent = formatNumber(DATA.accountA.views);
+            document.getElementById('a-followers').textContent = formatNumber(DATA.accountA.followers);
             document.getElementById('a-sales').textContent = DATA.accountA.sales;
             
+            const aProgress = DATA.accountA.progress;
+            const aPercent = Math.round((aProgress.current / aProgress.total) * 100);
+            document.querySelector('#accounts .account-card:first-child .progress-fill').style.width = aPercent + '%';
+            document.getElementById('a-progress').textContent = `${aProgress.current}/${aProgress.total}`;
+            
+            // B号
             document.getElementById('b-articles').textContent = DATA.accountB.articles;
-            document.getElementById('b-views').textContent = DATA.accountB.views;
-            document.getElementById('b-followers').textContent = DATA.accountB.followers;
+            document.getElementById('b-views').textContent = formatNumber(DATA.accountB.views);
+            document.getElementById('b-followers').textContent = formatNumber(DATA.accountB.followers);
+            
+            const bProgress = DATA.accountB.progress;
+            const bPercent = Math.round((bProgress.current / bProgress.total) * 100);
+            document.querySelector('#accounts .account-card:last-child .progress-fill').style.width = bPercent + '%';
+            document.getElementById('b-progress').textContent = `${bProgress.current}/${bProgress.total}`;
+            
+            // 更新总进度
+            const totalCurrent = aProgress.current + bProgress.current;
+            const totalTarget = aProgress.total + bProgress.total;
+            const totalPercent = Math.round((totalCurrent / totalTarget) * 100);
+            document.querySelector('#content .progress-fill').style.width = totalPercent + '%';
+            document.querySelector('#content .progress-label span:last-child').textContent = totalPercent + '%';
         }
         
+        function formatNumber(num) {
+            if (num >= 10000) {
+                return (num / 10000).toFixed(1) + 'w';
+            }
+            return num;
+        }
+        
+        // 初始化
         updateUI();
+        loadDataFromAPI();
     </script>
 </body>
 </html>

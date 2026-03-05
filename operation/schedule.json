@@ -1,5 +1,28 @@
 {
-  "version": "1.0",
-  "updated": "2026-03-05T08:52:00+08:00",
-  "schedule": []
+  "version": "1.1",
+  "updated": "2026-03-05T12:41:00+08:00",
+  "config": {
+    "publishTimes": {
+      "A": "20:00",
+      "B": "07:30"
+    },
+    "frequency": {
+      "A": { "min": 2, "max": 3, "unit": "week" },
+      "B": { "min": 2, "max": 3, "unit": "week" }
+    },
+    "preferredDays": {
+      "A": ["周二", "周四", "周六"],
+      "B": ["周一", "周三", "周五"]
+    }
+  },
+  "schedule": [],
+  "pending": [],
+  "history": [],
+  "stats": {
+    "total": 0,
+    "published": 0,
+    "pending": 0,
+    "draft": 0,
+    "thisMonth": 0
+  }
 }

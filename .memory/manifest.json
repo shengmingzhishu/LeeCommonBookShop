@@ -1,0 +1,23 @@
+{
+  "version": "1.0",
+  "created": "2026-03-05",
+  "description": "Levis 自我进化记忆系统",
+  "memory_types": {
+    "semantic": "抽象模式和规则，可跨场景复用",
+    "episodic": "具体经验和事件，记录发生了什么",
+    "working": "当前会话上下文，临时存储"
+  },
+  "evolution_triggers": [
+    "任务完成",
+    "用户反馈",
+    "错误修正",
+    "数据异常",
+    "模式发现"
+  ],
+  "update_frequency": {
+    "realtime": "每次任务后提取经验",
+    "daily": "整合当日经验到语义记忆",
+    "weekly": "抽象模式更新能力文档",
+    "monthly": "全面复盘系统升级"
+  }
+}

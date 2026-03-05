@@ -1,0 +1,42 @@
+{
+  "version": "1.0",
+  "updated": "2026-03-05T17:20:00+08:00",
+  "patterns": [
+    {
+      "id": "pat-001",
+      "name": "A号卖书B号品牌",
+      "category": "运营策略",
+      "pattern": "情感治愈类账号适合带货，职场现实类适合做品牌影响力",
+      "confidence": 0.9,
+      "applications": 1,
+      "created": "2026-03-05"
+    },
+    {
+      "id": "pat-002",
+      "name": "并行任务分发",
+      "category": "效率优化",
+      "pattern": "复杂任务拆分为独立子任务，用sessions_spawn并行执行",
+      "confidence": 0.9,
+      "applications": 2,
+      "created": "2026-03-05"
+    },
+    {
+      "id": "pat-003",
+      "name": "技能化优于脚本化",
+      "category": "系统设计",
+      "pattern": "发布功能做成skill比做成脚本更易维护、复用、扩展",
+      "confidence": 0.85,
+      "applications": 1,
+      "created": "2026-03-05"
+    },
+    {
+      "id": "pat-004",
+      "name": "工作成果归档",
+      "category": "项目管理",
+      "pattern": "所有工作成果分类存放到LeeCommonOpenClawWorkSpace仓库",
+      "confidence": 0.95,
+      "applications": 1,
+      "created": "2026-03-05"
+    }
+  ]
+}

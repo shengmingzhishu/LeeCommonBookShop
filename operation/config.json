@@ -1,22 +1,65 @@
 {
-  "version": "1.0",
-  "updated": "2026-03-05T08:52:00+08:00",
+  "version": "1.1",
+  "updated": "2026-03-05T12:41:00+08:00",
   "accounts": {
     "A": {
       "name": "待命名",
+      "alias": "A号-治愈系",
       "positioning": "治愈情感生活",
       "style": "温暖有温度",
+      "description": "面向都市女性的情感治愈类内容，关注心理健康、情感关系、自我成长",
       "monetize": true,
       "status": "pending",
-      "credentials": {}
+      "publishTime": "20:00",
+      "frequency": "每周2-3篇",
+      "targetArticles": 50,
+      "wechat": {
+        "appId": "",
+        "appSecret": "",
+        "accessToken": null,
+        "tokenExpireAt": null,
+        "apiBase": "https://api.weixin.qq.com/cgi-bin"
+      },
+      "credentials": {
+        "configured": false,
+        "lastChecked": null
+      }
     },
     "B": {
       "name": "待命名",
+      "alias": "B号-职场号",
       "positioning": "职场现实",
       "style": "冰冷果断",
+      "description": "面向职场人的现实主义内容，关注职业发展、技能提升、职场生存",
       "monetize": false,
       "status": "pending",
-      "credentials": {}
+      "publishTime": "07:30",
+      "frequency": "每周2-3篇",
+      "targetArticles": 50,
+      "wechat": {
+        "appId": "",
+        "appSecret": "",
+        "accessToken": null,
+        "tokenExpireAt": null,
+        "apiBase": "https://api.weixin.qq.com/cgi-bin"
+      },
+      "credentials": {
+        "configured": false,
+        "lastChecked": null
+      }
     }
+  },
+  "wechat": {
+    "apiEnabled": false,
+    "autoPublish": false,
+    "autoSync": false,
+    "syncInterval": "0 9 * * *",
+    "lastSync": null
+  },
+  "settings": {
+    "timezone": "Asia/Shanghai",
+    "defaultPlatform": "wechat",
+    "notifyOnPublish": true,
+    "notifyChannel": ""
   }
 }
