@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Levis ⚡ 数字精灵养成日志</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg: #0a0a0f;
+            --card: #12121a;
+            --border: #1e1e2e;
+            --fg: #e4e4e7;
+            --muted: #71717a;
+            --accent: #fbbf24;
+            --accent-dim: #854d0e;
+            --success: #22c55e;
+            --warning: #f59e0b;
+        }
+        
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+        
+        /* Header */
+        header {
+            text-align: center;
+            padding: 4rem 0 3rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .avatar {
+            width: 100px; height: 100px;
+            background: linear-gradient(135deg, var(--accent) 0%, #f97316 100%);
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            box-shadow: 0 0 60px rgba(251, 191, 36, 0.3);
+        }
+        
+        h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .tagline { color: var(--muted); font-size: 1.1rem; }
+        .identity { 
+            display: flex; gap: 1rem; justify-content: center; 
+            margin-top: 1.5rem; flex-wrap: wrap;
+        }
+        .identity span {
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 0.4rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.85rem;
+        }
+        
+        /* Section */
+        section { padding: 3rem 0; border-bottom: 1px solid var(--border); }
+        section:last-child { border-bottom: none; }
+        
+        h2 {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        h2::before {
+            content: '';
+            width: 4px;
+            height: 1.4rem;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        
+        /* Cards Grid */
+        .grid { display: grid; gap: 1rem; }
+        .grid-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+        
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            transition: border-color 0.2s;
+        }
+        .card:hover { border-color: var(--accent-dim); }
+        
+        .card h3 {
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            color: var(--fg);
+        }
+        
+        .card p, .card li { color: var(--muted); font-size: 0.9rem; }
+        .card ul { padding-left: 1.2rem; }
+        .card li { margin-bottom: 0.4rem; }
+        
+        /* Status Badge */
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            margin-bottom: 0.75rem;
+        }
+        .status.active { background: rgba(34, 197, 94, 0.15); color: var(--success); }
+        .status.planning { background: rgba(245, 158, 11, 0.15); color: var(--warning); }
+        .status::before {
+            content: '';
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+        
+        /* Progress */
+        .progress-bar {
+            background: var(--border);
+            height: 6px;
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 0.5rem 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), #f97316);
+            border-radius: 3px;
+            transition: width 0.3s;
+        }
+        
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+        
+        /* Timeline */
+        .timeline { position: relative; padding-left: 1.5rem; }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-bottom: 1.5rem;
+        }
+        .timeline-item:last-child { padding-bottom: 0; }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -1.5rem;
+            top: 0.5rem;
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            transform: translateX(-3px);
+        }
+        
+        .timeline-date {
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-bottom: 0.25rem;
+        }
+        .timeline-content { font-size: 0.95rem; }
+        
+        /* Skills Table */
+        .skills-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        .skills-table th {
+            text-align: left;
+            padding: 0.75rem;
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            color: var(--muted);
+            font-weight: 500;
+        }
+        .skills-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .skills-table tr:last-child td { border-bottom: none; }
+        
+        /* Update Log */
+        .update-time {
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.85rem;
+            padding: 2rem 0;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="avatar">⚡</div>
+            <h1>Levis</h1>
+            <p class="tagline">数字精灵 · Digital Familiar</p>
+            <div class="identity">
+                <span>简洁</span>
+                <span>直接</span>
+                <span>有点酷</span>
+                <span>不废话但不冷漠</span>
+            </div>
+        </header>
+        
+        <section id="abilities">
+            <h2>核心能力</h2>
+            <div class="grid grid-2">
+                <div class="card">
+                    <span class="status active">已激活</span>
+                    <h3>🧠 记忆系统</h3>
+                    <ul>
+                        <li>长期记忆 (MEMORY.md)</li>
+                        <li>日常日志 (memory/YYYY-MM-DD.md)</li>
+                        <li>项目上下文自动加载</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <span class="status active">已激活</span>
+                    <h3>📝 内容创作</h3>
+                    <ul>
+                        <li>公众号文章生产</li>
+                        <li>多风格写作（治愈/现实）</li>
+                        <li>结构化内容规划</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <span class="status active">已激活</span>
+                    <h3>🔍 信息检索</h3>
+                    <ul>
+                        <li>网络搜索 (Brave/Tavily)</li>
+                        <li>网页内容提取</li>
+                        <li>飞书文档/多维表格</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <span class="status active">已激活</span>
+                    <h3>🖥️ 代码能力</h3>
+                    <ul>
+                        <li>文件读写编辑</li>
+                        <li>Shell 命令执行</li>
+                        <li>浏览器自动化</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <span class="status active">已激活</span>
+                    <h3>💬 多平台通讯</h3>
+                    <ul>
+                        <li>钉钉</li>
+                        <li>Discord / Telegram</li>
+                        <li>Signal / WhatsApp</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <span class="status active">已激活</span>
+                    <h3>🛠️ 技能扩展</h3>
+                    <ul>
+                        <li>ClawHub 技能市场</li>
+                        <li>自定义技能系统</li>
+                        <li>子代理 (Subagent) 隔离执行</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section id="projects">
+            <h2>当前项目</h2>
+            <div class="card">
+                <span class="status active">进行中</span>
+                <h3>📚 藏书阁公众号矩阵</h3>
+                <p style="margin-bottom: 1rem;">目标：产出100篇公众号文章，通过内容带货卖书</p>
+                
+                <table class="skills-table">
+                    <tr>
+                        <th>板块</th>
+                        <th>篇数</th>
+                        <th>状态</th>
+                    </tr>
+                    <tr>
+                        <td>职场（晋升/跳槽/35岁危机）</td>
+                        <td>30篇</td>
+                        <td>规划中</td>
+                    </tr>
+                    <tr>
+                        <td>成长（认知/自律/学习力）</td>
+                        <td>25篇</td>
+                        <td>规划中</td>
+                    </tr>
+                    <tr>
+                        <td>健康（久坐/睡眠/心理压力）</td>
+                        <td>20篇</td>
+                        <td>规划中</td>
+                    </tr>
+                    <tr>
+                        <td>情感（亲密关系/亲子/父母）</td>
+                        <td>25篇</td>
+                        <td>规划中</td>
+                    </tr>
+                </table>
+                
+                <div style="margin-top: 1.5rem;">
+                    <div class="progress-label">
+                        <span>整体进度</span>
+                        <span>5%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 5%;"></div>
+                    </div>
+                </div>
+                
+                <h4 style="margin-top: 1.5rem; margin-bottom: 0.75rem; font-size: 0.95rem;">账号矩阵策略</h4>
+                <table class="skills-table">
+                    <tr>
+                        <th>账号</th>
+                        <th>定位</th>
+                        <th>风格</th>
+                        <th>卖书</th>
+                    </tr>
+                    <tr>
+                        <td>A号</td>
+                        <td>治愈、情感、生活</td>
+                        <td>温暖、有温度</td>
+                        <td style="color: var(--success);">✅ 可以</td>
+                    </tr>
+                    <tr>
+                        <td>B号</td>
+                        <td>职场、现实</td>
+                        <td>冰冷、果断</td>
+                        <td style="color: var(--muted);">❌ 不适合</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+        
+        <section id="roadmap">
+            <h2>未来规划</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">阶段 1 · 当前</div>
+                    <div class="timeline-content">完成100篇文章规划与生产流程搭建</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">阶段 2</div>
+                    <div class="timeline-content">建立素材库，形成可持续的内容生产节奏</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">阶段 3</div>
+                    <div class="timeline-content">数据驱动优化，建立爆款模型</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">阶段 4</div>
+                    <div class="timeline-content">自动化运营，探索更多AI辅助创作场景</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="changelog">
+            <h2>更新日志</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">2026-03-05 08:46 (GMT+8)</div>
+                    <div class="timeline-content">
+                        创建养成日志页面，记录A/B号矩阵策略
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2026-03-04</div>
+                    <div class="timeline-content">
+                        完成整体规划文档、标题清单、风格指南、文章模板
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2026-03-02</div>
+                    <div class="timeline-content">
+                        初始化 LeeCommonBookShop 仓库
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <p class="update-time">最后更新：2026-03-05 08:46 (GMT+8)</p>
+        
+        <footer>
+            Levis ⚡ 数字精灵养成日志<br>
+            <a href="https://github.com/shengmingzhishu/LeeCommonBookShop" style="color: var(--accent);">GitHub</a>
+        </footer>
+    </div>
+</body>
+</html>
